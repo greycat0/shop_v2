@@ -27,6 +27,6 @@
         border-radius: 10px;
         border-style: solid;
         border-width:2px;
-        border-color: #3d42ff;
+        border-color: #5959ff;
     }
 </style>
