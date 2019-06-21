@@ -15,7 +15,7 @@
                     <div class="text-danger font-weight-bold item-price mt-3">
                         {{price}} &#8381;
                     </div>
-                    <counter :max="amount" :number="count" @counter="updateCount" class="mt-auto"></counter>
+                    <counter :max=amount @counter="updateCount" class="mt-auto"></counter>
                     <bue-button :count="count" :item_id="item_id" class="mt-2 mb-5 w-75"></bue-button>
                 </div>
             </div>
@@ -36,16 +36,32 @@
                 count: 1
             }
         },
-        props: [
-            'item_id',
-            'category_id',
-            'category_name',
-            'name',
-            'price',
-            'desc',
-            'img',
-            'amount',
-        ],
+        props: {
+            item_id: {
+                default: 0
+            },
+            category_id: {
+                default: 0
+            },
+            category_name: {
+                default: ''
+            },
+            name: {
+                default: ''
+            },
+            price: {
+                default: 0
+            },
+            desc: {
+                default: ''
+            },
+            img: {
+                default: ''
+            },
+            amount: {
+                default: 0
+            },
+        },
         components: {
             'bue-button': require('./BueButton.vue').default,
             'counter': require('./Counter.vue').default,

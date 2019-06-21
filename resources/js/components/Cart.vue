@@ -21,7 +21,7 @@
                            :img="item.data.img"
                            :amount="item.data.amount"
                            :price="item.data.price"
-                           @update-item="check()"
+                           @update-item="recheck()"
                 ></cart-item>
                 </tbody>
             </table>
@@ -42,24 +42,29 @@
               'total': 0
           }
         },
-        props: [
-            'items'
-        ],
+        props: {
+            items: {
+                default: []
+            }
+        },
         components: {
             'cart-item': require('./CartItem.vue').default,
         },
         mounted() {
-            this.check();
+
+            this.recheck();
+            $("div").attr('disabled', 'disabled');
         },
         methods:{
-            check(){
-                let cart = this.getCookie('cart');
-                this.isEmpty = cart === '{}';
-                cart = JSON.parse(cart);
+            recheck() {
+                let cart = this.$store.getters.cart;
+                this.isEmpty = Object.entries(cart).length === 0;
+
                 this.total = 0;
-                for (let item in cart)
+                for (let item_id in cart)
                 {
-                    this.total += cart[item].count * JSON.parse(this.items)[item].data.price;
+                    let price = JSON.parse(this.items)[item_id].data.price;
+                    this.total += cart[item_id].count * price;
                 }
             },
         }

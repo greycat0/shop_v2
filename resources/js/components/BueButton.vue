@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button @click="bue(item_id)" class="btn btn-primary" data-target="#buemodal"
+        <button @click="bue" class="btn btn-primary" data-target="#buemodal"
                 data-toggle="modal">
             Купить
         </button>
@@ -27,19 +27,18 @@
 </template>
 
 <script>
-    import bus from '../app.js'
-export default {
-    props:[
-        'item_id',
-        'count'
-    ],
-    methods: {
-        bue(item_id) {
 
-            if (!this.count)
-            {
-                this.count = 1;
-            }
+export default {
+    props: {
+        item_id: {
+            default: 0
+        },
+        count: {
+            default: 1
+        }
+    },
+    methods: {
+        bue() {
 
             // axios           //send item to server
             //     .post('/cart',
@@ -53,23 +52,9 @@ export default {
             //         'Content-Type': 'application/x-www-form-urlencoded',
             //     } )
 
-            let cart = {};
-            if (this.getCookie('cart') !== undefined) {         //Getting current cart
-                try{
-                    cart = JSON.parse( this.getCookie('cart'));
-                }catch(e){
-                    cart = {};
-                }
-            }
-
-            if ( typeof( cart) != 'object')
-            {
-                cart = {};          //if couldn't
-            }
-
-            cart[item_id] = {count: this.count};
-            document.cookie = encodeURI( "cart=" + JSON.stringify(cart)) + "; path=/";
-            
+            let cart = this.$store.getters.cart;
+            cart[this.item_id] = {count: this.count};
+            this.$store.commit('updateCart', cart);
         },
     }
 }
