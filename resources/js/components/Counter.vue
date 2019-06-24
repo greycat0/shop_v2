@@ -25,14 +25,6 @@
             max: {
                 default: 1,
             },
-            // isCart: {
-            //     type: Boolean,
-            //     default: false,
-            // },
-            // item_id: {
-            //     type: Boolean,
-            //     default: false,
-            // },
         },
         methods: {
             changeCount(inc) {
@@ -41,20 +33,10 @@
                     this.count = Number(this.count)
                     this.count += inc;
                 }
-                //this.changeCookie(this.count);
                 this.$emit('counter',this.count)
             },
-            // changeCookie(count) {
-            //     if (this.isCookie) {
-            //         // let cart = JSON.parse( this.getCookie('cart'));
-            //         // cart[this.item_id].count = value;
-            //         // document.cookie = encodeURI( "cart=" + JSON.stringify(cart)) + "; path=/";
-            //         this.store.commit('updateCount', this.item_id, count)
-            //     }
-            // }
         },
         mounted() {
-            //console.log();
             let self = this;
             $(this.$el.children[1]).on('keydown', function (e) {
 
@@ -66,10 +48,6 @@
                     return false;
                 }
             });
-            // $('input').on('input', function (e) {
-            //     // self.changeCookie(self.count);
-            //     self.$emit('counter', self.count)
-            // });
             $(this.$el.children[1]).on('blur', function (e) {
                 if (Number(self.count) === 0) {
                     self.count = 1;
@@ -77,7 +55,6 @@
                 if (Number(self.count) > self.max) {
                     self.count = self.max;
                 }
-                // self.changeCookie(self.count);
                 self.$emit('counter', self.count)
             })
         },
@@ -99,10 +76,5 @@
         width: 35px;
         line-height: 16px;
         font-size: 20px;
-
-    }
-
-    .minus-btn {
-        background-color: #3468DC;
     }
 </style>

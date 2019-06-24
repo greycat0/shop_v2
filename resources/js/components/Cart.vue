@@ -3,31 +3,30 @@
         <div v-if="isEmpty" style="font-size: 30px;">
             Ваша корзина пуста
         </div>
-        <div v-if="!isEmpty">
+        <div v-else class="d-flex flex-column">
             <table class="table">
                 <thead class="bg-light">
-                    <td></td>
-                    <td>Наименование</td>
-                    <td>Цена</td>
-                    <td>Количество</td>
-                    <td></td>
+                <td></td>
+                <td>Наименование</td>
+                <td>Цена</td>
+                <td>Количество</td>
+                <td></td>
                 </thead>
                 <tbody>
-                <cart-item v-for="item in JSON.parse(items)"
-                           v-bind:key="item.data.id"
-                           :item_id="item.data.id"
-                           :name="item.data.name"
-                           :count="item.count"
-                           :img="item.data.img"
-                           :amount="item.data.amount"
-                           :price="item.data.price"
-                           @update-item="recheck()"
+                <cart-item v-for="item in items"
+                           v-bind:key="item.id"
+                           :item_id="item.id"
+                           :name="item.name"
+                           :count="$store.state.cart[item.id].count"
+                           :img="item.img"
+                           :amount="item.amount"
+                           :price="item.price"
                 ></cart-item>
                 </tbody>
             </table>
-            <div align="right" class="mt-5">
+            <div class="mt-5 align-self-end">
                 <p style="font-size: 25px">Итого {{total}} &#8381</p>
-                <button class="btn btn-primary">Оформить заказ</button>
+                <perform-button :items="items"></perform-button>
             </div>
         </div>
     </div>
@@ -36,38 +35,58 @@
 <script>
     export default {
         name: "Cart",
-        data(){
-          return {
-              'isEmpty': true,
-              'total': 0
-          }
-        },
         props: {
             items: {
-                default: []
+                default: {}
             }
         },
         components: {
             'cart-item': require('./CartItem.vue').default,
+            'perform-button': require('./PerformButton').default,
         },
-        mounted() {
+        methods: {
+            delete_item(item_id) {
 
-            this.recheck();
-            $("div").attr('disabled', 'disabled');
+                let cart = this.$store.state.cart;
+                this.$delete(cart, item_id);
+                this.$store.commit('updateCart', cart);
+
+
+                this.$delete(this.items, item_id);
+
+                axios           //send message about delete to server
+
+                    .post('/cart',
+                        {
+                            'action': 'delete',
+                            'item_id': item_id,
+                        },
+                        {
+                            'X-CSRF-Token': this.getCookie('XSRF-TOKEN'),
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        })
+            }
         },
-        methods:{
-            recheck() {
-                let cart = this.$store.getters.cart;
-                this.isEmpty = Object.entries(cart).length === 0;
-
-                this.total = 0;
-                for (let item_id in cart)
-                {
-                    let price = JSON.parse(this.items)[item_id].data.price;
-                    this.total += cart[item_id].count * price;
+        computed: {
+            total() {
+                let total = 0;
+                let cart = this.$store.state.cart;
+                for (let item_id in cart) {
+                    let items = this.items;
+                    let price = items[item_id].price;
+                    total += cart[item_id].count * price;
                 }
+                return total;
             },
+            isEmpty() {
+                let cart = this.$store.state.cart;
+                return Object.entries(cart).length === 0;
+            }
+        },
+        watch: {
+
         }
+
     }
 </script>
 

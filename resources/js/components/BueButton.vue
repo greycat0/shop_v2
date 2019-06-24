@@ -52,7 +52,7 @@ export default {
             //         'Content-Type': 'application/x-www-form-urlencoded',
             //     } )
 
-            let cart = this.$store.getters.cart;
+            let cart = this.$store.state.cart;
             cart[this.item_id] = {count: this.count};
             this.$store.commit('updateCart', cart);
         },

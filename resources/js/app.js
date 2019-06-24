@@ -24,18 +24,21 @@ Vue.use(Vuex);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
+Vue.prototype.ymaps = window.ymaps;
 
 const store = new Vuex.Store({
     state: {
-        itemCount: 0
+        itemCount: 0,
+        cart: {}
     },
     mutations: {
         updateCart(state, cart) {
+            state.cart = cart;
             state.itemCount = Object.entries(cart).length;
             document.cookie = encodeURI("cart=" + JSON.stringify(cart)) + "; path=/";
         },
-        updateItemCount(state) {
+        init(state) {
+            state.cart = this.getters.cart;
             let cart = this.getters.cart;
             state.itemCount = Object.entries(cart).length;
         }
@@ -84,6 +87,6 @@ const app = new Vue({
         'cart': require('./components/Cart.vue').default,
     },
     mounted() {
-        this.$store.commit('updateItemCount');
+        this.$store.commit('init');
     }
 });

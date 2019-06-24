@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'Controller@index');
+Route::get('/', 'ItemController@index');
 
 Route::get('/cart', 'ItemController@cart');
 
@@ -19,6 +19,9 @@ Route::post('/cart', 'ItemController@updateItemInCart');
 
 Route::get('/item/{id}', 'ItemController@show');
 
+Route::get('/about', 'Controller@about');
+Route::get('/delivery', 'Controller@delivery');
+Route::get('/payment', 'Controller@payment');
 // //Route::post('/item/{id}', 'ItemController@item');
 
 // Route::post('/items', 'ItemController@items');

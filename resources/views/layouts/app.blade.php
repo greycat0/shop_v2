@@ -10,6 +10,9 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"
+            type="text/javascript">
+    </script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
@@ -31,6 +34,11 @@
         .list-group-striped li:nth-child(2n+1){
           background-color: #eee;
         }
+
+        .footer {
+            min-height: 200px;
+            background-color: #222;
+        }
     </style>
 
 
@@ -51,13 +59,13 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">О нас</a>
+                            <a class="nav-link" href="/about">О нас</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Доставка</a>
+                            <a class="nav-link" href="/delivery">Доставка</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Оплата</a>
+                            <a class="nav-link" href="/payment">Оплата</a>
                         </li>
 
                         @guest
@@ -124,6 +132,22 @@
         <main class="container mt-5 mx-sm-n0 content bg-white py-4">
             @yield('content')
         </main>
+        <footer class="footer">
+            <div class="container p-3">
+                <span style="color: #6ab8ee; font-family: Roboto; font-size: 11.5px; font-weight: bold;">ДОКУМЕНТАЦИЯ ПОЛЬЗОВАТЕЛЯ </span>
+                <div class="d-flex flex-column flex-md-row">
+                    <div class="m-3" style="color: #89949b; font-family: Roboto; font-size: 14px;">
+                        <div>Название документа 1</div>
+                        <div><a href="document/doc1.txt" download>Скачать</a></div>
+                    </div>
+                    <div class="m-3" style="color: #89949b; font-family: Roboto; font-size: 14px;">
+                        <div>Название документа 2</div>
+                        <div><a href="document/doc1.txt" download>Скачать</a></div>
+                    </div>
+                </div>
+            </div>
+            <div align="center" class="mt-md-5 text-light">© 2019 All rights reserved.</div>
+        </footer>
     </div>
 </body>
 </html>

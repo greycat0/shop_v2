@@ -12,6 +12,26 @@ use App\ItemUser;
 
 class ItemController extends Controller
 {
+    public function index(Request $request)
+    {
+        $category = (object)['name' => 'Все товары'];
+        if ($request->input('category') != null) {
+            $category = Category::find(intval($request->input('category')));
+            if (isset($category)) {
+                $items = $category->items;
+            } else {
+                abort(404);
+            }
+        } else {
+            $items = Item::all();
+        }
+
+        return view('welcome', compact(
+            'items',
+            'category'
+        ));
+    }
+
     public function show($id)
     {
         $item = Item::find(intval($id));
@@ -40,16 +60,8 @@ class ItemController extends Controller
             $cart = (object)[];         //if couldn't
         }
 
-
-        $items = (object)[];      //Getting items to send to cart page
-        foreach ($cart as $item_id => $value) {
-
-            $items->{$item_id} = (object)[];
-            $items->{$item_id}->data = Item::find($item_id);
-            $items->{$item_id}->count = $value->count;
-        }
-
-
+        $item_ids = array_keys((array)$cart);
+        $items = Item::whereIn('id', $item_ids)->get()->keyBy('id');
         return view('cart', compact(
             'items'
         ));
