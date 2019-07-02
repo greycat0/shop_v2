@@ -29,7 +29,7 @@ Vue.prototype.ymaps = window.ymaps;
 const store = new Vuex.Store({
     state: {
         itemCount: 0,
-        cart: {}
+        cart: {},
     },
     mutations: {
         updateCart(state, cart) {
@@ -39,8 +39,7 @@ const store = new Vuex.Store({
         },
         init(state) {
             state.cart = this.getters.cart;
-            let cart = this.getters.cart;
-            state.itemCount = Object.entries(cart).length;
+            state.itemCount = Object.entries(state.cart).length;
         }
     },
     getters: {
@@ -64,9 +63,8 @@ const store = new Vuex.Store({
 });
 
 
-
 Vue.mixin({
-    methods:{
+    methods: {
         getCookie(name) {
             var matches = document.cookie.match(new RegExp(
                 "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
@@ -80,8 +78,8 @@ Vue.mixin({
 const app = new Vue({
     el: '#app',
     store,
-    components:{
-        'item-preview': require('./components/ItemPreview.vue').default,
+    components: {
+        'items': require('./components/Items.vue').default,
         'item': require('./components/Item.vue').default,
         'cart-button': require('./components/CartButton').default,
         'cart': require('./components/Cart.vue').default,
