@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\ItemUser;
+use App\Item;
 use Illuminate\Support\Facades\Auth;
 
 class Cart
@@ -23,14 +24,19 @@ class Cart
             $cart = json_decode($_COOKIE['cart']);          //Getting items from local
         }
 
-        if (    $cart == null) {
+        if ($cart == null) {
             $cart = (object)[];         //if couldn't
+        }
+        foreach ($cart as $key => $value) {
+            if (!Item::find(intval($key)))
+            {
+                unset($cart->$key);
+            }
         }
 
         if (Auth::check())               //Merge local and server
         {
-
-            foreach ($cart as $item_id => $value)           //Adding item from local to server
+            foreach ($cart as $item_id => $value)   //Adding item from local to server
             {
 
                 if ( !ItemUser::where('user_id', Auth::user()->id)
@@ -51,10 +57,9 @@ class Cart
                     $cart->{$item->item_id} = (object)['count' => $item->count];
                 }
             }
-            setcookie('cart', json_encode($cart), 2147483647, '/');          //Set new cookie (local + server items)
-            $_COOKIE['cart'] = json_encode($cart);
         }
-
+        setcookie('cart', json_encode($cart), 2147483647, '/');          //Set new cookie (local + server items)
+        $_COOKIE['cart'] = json_encode($cart);
         return $next($request);
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <button onclick="location='/cart'" class="btn ml-auto mr-3" type="button">
+    <button v-if="!$store.state.isAdmin" onclick="location='/cart'" class="btn ml-auto mr-3" type="button">
         <img src="/svg/cart.svg" width="30" alt="">
         <span class="count px-1">{{$store.state.itemCount}}</span>
     </button>
@@ -12,10 +12,11 @@
 </script>
 
 <style scoped>
-    .count{
+    .count {
         border-radius: 10px;
         border-style: solid;
         border-width:2px;
-        border-color: #5959ff;
+        border-color: #5c5cff;
+        background-color: #5e5eff;
     }
 </style>

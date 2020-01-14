@@ -3,7 +3,7 @@
         <button @click="changeCount(-1)" class="btn btn-primary my-btn ">
             -
         </button>
-        <input maxlength="4" class="mx-1" v-model="count">
+        <input maxlength="16" class="mx-1" v-model="count">
         <button @click="changeCount(1)" class="btn btn-primary my-btn">
             +
         </button>
@@ -15,15 +15,15 @@
         name: "Counter",
         data() {
             return {
-                count: this.value
+                count: this.max !== 0 ? this.value : 0
             }
         },
         props: {
             value: {
-                default: 1,
+                default: 1 ,
             },
             max: {
-                default: 1,
+                default: Number.MAX_SAFE_INTEGER,
             },
         },
         methods: {
@@ -44,6 +44,7 @@
                     && e.key !== 'Backspace'
                     && e.key !== 'ArrowLeft'
                     && e.key !== 'ArrowRight'
+                    && e.key !== 'Delete'
                 ) {
                     return false;
                 }
@@ -64,7 +65,7 @@
 <style scoped>
     input {
         text-align: center;
-        width: 40px;
+        width: 50px;
         height: 30px;
         border-color: #b3b3b3;
         border-radius: 3px;

@@ -25,9 +25,9 @@
         methods: {
             item_url(item_id)
             {
-                return 'item/' + item_id;
+                return '/item/' + item_id;
             },
-            redirect( url)
+            redirect(url)
             {
                 location = url;
             }
@@ -38,7 +38,6 @@
 <style scoped>
     .item{
         width: 200px;
-        height: 260px;
         display: inline-block;
         word-wrap: break-word;
         overflow: hidden;

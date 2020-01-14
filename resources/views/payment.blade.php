@@ -1,5 +1,5 @@
 @extends('layouts/app')
 
 @section('content')
-    Тут инструкция по оплате (наш любимый раздел)
+    Тут инструкция по оплате.
 @endsection

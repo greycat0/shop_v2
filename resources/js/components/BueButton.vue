@@ -48,7 +48,7 @@ export default {
             //         'count': this.count,
             //     },
             //     {
-            //         'X-CSRF-Token': this.getCookie('XSRF-TOKEN'),
+            //         'X-CSRF-Token': getCookie('XSRF-TOKEN'),
             //         'Content-Type': 'application/x-www-form-urlencoded',
             //     } )
 

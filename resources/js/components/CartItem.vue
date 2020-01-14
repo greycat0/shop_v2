@@ -4,7 +4,7 @@
         <td class="td">
             <img :src="'img/' + img" class="img">
         </td>
-        <td>
+        <td style="word-break: break-word;">
             {{name}}
         </td>
         <td>
