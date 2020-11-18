@@ -1,0 +1,24 @@
+# Ignore everything
+**
+
+# Allow files and directories
+!src/app
+!src/bootstrap
+!src/config
+!src/database
+!src/resources
+!src/public
+!src/routes
+!src/storage
+
+!src/artisan
+!src/composer.json
+!src/composer.lock
+!src/package.json
+!src/phpunit.xml
+!src/server.php
+!src/webpack.mix.js
+
+!server/.env
+!server/shop.conf
+!server/wait-for-it.sh
