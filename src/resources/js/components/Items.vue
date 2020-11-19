@@ -82,6 +82,7 @@
                 const hide = this.$message.loading('Загрузка...', 0)
                 var xhr = new XMLHttpRequest()
                 xhr.open ('post', '/deleteitem/' + itemID, true)
+                xhr.withCredentials = true;
                 xhr.setRequestHeader('X-XSRF-TOKEN', getCookie('XSRF-TOKEN'))
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
                 xhr.send ()
@@ -99,6 +100,7 @@
             var xhr = new XMLHttpRequest()
             xhr.open ('get', '/items' + (this.$store.state.categoryFilter ?
                '?category=' + this.$store.state.categoryFilter : '') , true)
+            xhr.withCredentials = true;
             xhr.setRequestHeader('X-XSRF-TOKEN', getCookie('XSRF-TOKEN'))
             xhr.send ()
             xhr.onreadystatechange = () => {

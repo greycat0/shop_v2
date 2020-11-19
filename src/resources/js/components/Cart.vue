@@ -56,6 +56,7 @@
 
                 this.$delete(this.items, item_id);
                 console.log(getCookie('XSRF-TOKEN'))
+                axios.default.withCredentials = true;
                 axios           //send message about delete to server
 
                     .post('/cart',

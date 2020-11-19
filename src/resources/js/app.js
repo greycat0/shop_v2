@@ -67,6 +67,7 @@ const store = new Vuex.Store({
             state.categoryFilter = qs.parse(window.location.search.slice(1)).category
             var xhr = new XMLHttpRequest()
             xhr.open ('post', '/categories', true)
+            xhr.withCredentials = true;
             xhr.setRequestHeader('X-XSRF-TOKEN', getCookie('XSRF-TOKEN'))
             xhr.send ()
             xhr.onreadystatechange = function () {

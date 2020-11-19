@@ -134,7 +134,8 @@
 				formData.append("desc", this.desc)
 
 				var xhr = new XMLHttpRequest()
-                xhr.open ('post', '/createitem', true)
+				xhr.open ('post', '/createitem', true)
+				xhr.withCredentials = true;
                 xhr.setRequestHeader('X-XSRF-TOKEN', getCookie('XSRF-TOKEN'))
                 xhr.send (formData)
                 xhr.onreadystatechange = () => {

@@ -71,6 +71,7 @@ export default {
                 const hide = this.$message.loading('Загрузка...', 0)
                 var xhr = new XMLHttpRequest()
                 xhr.open ('post', '/createcategory', true)
+                xhr.withCredentials = true;
                 xhr.setRequestHeader('X-XSRF-TOKEN', getCookie('XSRF-TOKEN'))
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
                 xhr.send ('name=' + name)
@@ -90,6 +91,7 @@ export default {
                 const hide = this.$message.loading('Загрузка...', 0)
                 var xhr = new XMLHttpRequest()
                 xhr.open ('post', '/updatecategory/' + id, true)
+                xhr.withCredentials = true;
                 xhr.setRequestHeader('X-XSRF-TOKEN', getCookie('XSRF-TOKEN'))
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
                 xhr.send ('name=' + name)
@@ -108,6 +110,7 @@ export default {
                 const hide = this.$message.loading('Загрузка...', 0)
                 var xhr = new XMLHttpRequest()
                 xhr.open ('post', '/deletecategory/' + id, true)
+                xhr.withCredentials = true;
                 xhr.setRequestHeader('X-XSRF-TOKEN', getCookie('XSRF-TOKEN'))
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
                 xhr.send ()
